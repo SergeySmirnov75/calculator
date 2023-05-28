@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/calculator")
 public class CalcController
 {
     private final CalcService calcService;
@@ -27,42 +28,34 @@ public class CalcController
     }
 
 
-    @RequestMapping(path = "/calculator")
+    @RequestMapping(path = "/")
     public String answerCalc()
     {
         return "Добро пожаловать в калькулятор!";
     }
 
 
-    @RequestMapping(path = "/calculator/plus")
+    @RequestMapping(path = "/plus")
     public String plusCalc(@RequestParam("num1") int num1, @RequestParam("num2") int num2)
     {
-        int res = num1 + num2;
-        return num1 + " + " + num2 + " = " + res;
+        return calcService.plusCalc(num1, num2);
     }
 
-    @RequestMapping(path = "/calculator/minus")
+    @RequestMapping(path = "/minus")
     public String minusCalc(@RequestParam("num1") int num1, @RequestParam("num2") int num2)
     {
-        int res = num1 - num2;
-        return num1 + " - " + num2 + " = " + res;
+        return calcService.minusCalc(num1, num2);
     }
 
-    @RequestMapping(path = "/calculator/multiply")
+    @RequestMapping(path = "/multiply")
     public String multiplyCalc(@RequestParam("num1") int num1, @RequestParam("num2") int num2)
     {
-        int res = num1 * num2;
-        return num1 + " * " + num2 + " = " + res;
+        return calcService.multiplyCalc(num1, num2);
     }
 
-    @RequestMapping(path = "/calculator/divide")
+    @RequestMapping(path = "/divide")
     public String divideCalc(@RequestParam("num1") int num1, @RequestParam("num2") int num2)
     {
-        if (num2 != 0)
-        {
-            int res = num1 / num2;
-            return num1 + " / " + num2 + " = " + res;
-        }
-        else return "нельзя делить на ноль";
+        return calcService.divideCalc(num1, num2);
     }
 }
